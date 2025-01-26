@@ -17,6 +17,10 @@ https://sdcc.sourceforge.net/index.php#Download
 installed path,  
 C:\Program Files (x86)\SDCC
 
+
+
+### deepseek generated,,,
+
 ## [main.c](main.c)
 Here’s a basic example of how you can set up the PWM output on PB0 and PB1:
 
