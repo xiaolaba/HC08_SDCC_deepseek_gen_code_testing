@@ -1,4 +1,7 @@
-#include <hc908qt2.h>  // Include the HC908QT2 register definitions
+//#include <hc908qt2.h>  // Include the HC908QT2 register definitions
+
+#include <mc68hc908qy.h>  // include file for SDCC, xiaolaba 2025-JAN-26
+
 
 // Define register addresses for TIM (Timer Interface Module)
 #define TSC  *(volatile unsigned char *)0x20  // Timer Status and Control Register
