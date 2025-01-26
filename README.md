@@ -1,18 +1,23 @@
 # HC08_SDCC_deepseek_gen_code_testing
-deepseek is AI by China company, try and gen code for HC08 and SDCC compiler. chatgot is the US company product but not available to some country/region.
+deepseek is AI by China company, try and gen code for HC08 and SDCC compiler. chatgpt is the US company product but not available to some country/region.
 
 
-### my goal, no compile yet
+### my goal, no compile yet with Makefile
 To generate a 100 kHz PWM signal on PB0 and PB1 using the HC908QT2 microcontroller in C, you need to configure the timer module to generate PWM signals. The HC908QT2 microcontroller has a Timer Interface Module (TIM) that can be used for PWM generation.
+
+### my [build.bat](build.bat)
+testing done, ok  
+[build.bat](build.bat)  
+
 
 ### SDCC download
 https://sdcc.sourceforge.net/index.php#Download  
-sdcc-4.4.0-setup.exe  
+[sdcc-4.4.0-setup.exe](sdcc-4.4.0-setup.exe)  
 
 installed path,  
 C:\Program Files (x86)\SDCC
 
-## main.c
+## [main.c](main.c)
 Here’s a basic example of how you can set up the PWM output on PB0 and PB1:
 
 ### 1. Include the necessary header files
