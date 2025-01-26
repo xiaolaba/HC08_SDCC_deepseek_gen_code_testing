@@ -6,7 +6,7 @@ deepseek is AI by China company, try and gen code for HC08 and SDCC compiler. ch
 To generate a 100 kHz PWM signal on PB0 and PB1 using the HC908QT2 microcontroller in C, you need to configure the timer module to generate PWM signals. The HC908QT2 microcontroller has a Timer Interface Module (TIM) that can be used for PWM generation.
 
 ### SDCC download
-https://sdcc.sourceforge.net/index.php#Download
+https://sdcc.sourceforge.net/index.php#Download  
 sdcc-4.4.0-setup.exe  
 
 installed path,  
