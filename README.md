@@ -5,6 +5,8 @@ deepseek is AI by China company, try and gen code for HC08 and SDCC compiler. ch
 ### my goal, no compile yet
 To generate a 100 kHz PWM signal on PB0 and PB1 using the HC908QT2 microcontroller in C, you need to configure the timer module to generate PWM signals. The HC908QT2 microcontroller has a Timer Interface Module (TIM) that can be used for PWM generation.
 
+
+## main.c
 Here’s a basic example of how you can set up the PWM output on PB0 and PB1:
 
 ### 1. Include the necessary header files
@@ -83,3 +85,135 @@ void main(void) {
 - Ensure that the TIM module is correctly configured for PWM mode and that the output pins are correctly set up.
 
 This code provides a basic framework for generating PWM signals on PB0 and PB1. You may need to fine-tune the settings based on your specific requirements and the clock configuration of your microcontroller.
+
+
+
+## Makefile
+Below is the **complete `Makefile`** for compiling, linking, and generating the HEX file for the HC908QT2 microcontroller using **SDCC-M08**. This Makefile is tailored for the PWM program provided earlier and includes all necessary steps for building the project.
+
+---
+
+### Complete Makefile for SDCC-M08
+```makefile
+# Makefile for HC908QT2 PWM program using SDCC-M08
+
+# Target microcontroller
+TARGET = m08
+
+# Output file names
+OUTPUT = pwm_output
+HEX = $(OUTPUT).hex
+REL = $(OUTPUT).rel
+
+# Source files
+SRC = main.c
+
+# Compiler and flags
+CC = sdcc
+CFLAGS = -m$(TARGET) --std-sdcc11 --opt-code-size
+LDFLAGS = -m$(TARGET) --out-fmt-ihx
+
+# Default target
+all: $(HEX)
+
+# Compile the source code into a relocatable object file
+$(REL): $(SRC)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Link the object file into a HEX file
+$(HEX): $(REL)
+	$(CC) $(LDFLAGS) $< -o $@
+
+# Clean up build files
+clean:
+	rm -f *.asm *.lst *.mem *.map *.lk *.rel *.rst *.sym *.ihx *.hex *.adb *.cdb
+
+# Flash the HEX file to the microcontroller (replace with your programmer command)
+flash:
+	programmer-cli -f $(HEX)  # Replace with your actual flashing command
+
+# Phony targets
+.PHONY: all clean flash
+```
+
+---
+
+### Explanation of the Makefile:
+
+1. **Variables**:
+   - `TARGET`: Specifies the target microcontroller (`m08` for HC08 family).
+   - `OUTPUT`: The base name for the output files.
+   - `SRC`: The source file (`main.c` in this case).
+
+2. **Compiler and Flags**:
+   - `CC`: The compiler to use (`sdcc`).
+   - `CFLAGS`: Compiler flags:
+     - `-m$(TARGET)`: Specifies the target microcontroller.
+     - `--std-sdcc11`: Enables C11 standard compliance.
+     - `--opt-code-size`: Optimizes for code size.
+   - `LDFLAGS`: Linker flags:
+     - `-m$(TARGET)`: Specifies the target microcontroller.
+     - `--out-fmt-ihx`: Outputs the file in Intel HEX format.
+
+3. **Targets**:
+   - `all`: The default target, which builds the HEX file.
+   - `$(REL)`: Compiles the source code into a relocatable object file.
+   - `$(HEX)`: Links the object file into a HEX file.
+   - `clean`: Removes all generated files.
+   - `flash`: A placeholder for flashing the HEX file to the microcontroller. Replace the `programmer-cli` command with the actual command for your programmer.
+
+4. **Phony Targets**:
+   - `.PHONY`: Specifies targets that are not actual files (e.g., `all`, `clean`, `flash`).
+
+---
+
+### Directory Structure:
+Ensure your project directory looks like this:
+```
+project/
+├── main.c       # Your C source file
+├── Makefile     # The Makefile provided above
+```
+
+---
+
+### Usage:
+
+1. **Build the Project**:
+   Run the following command in the terminal:
+   ```bash
+   make
+   ```
+   This will generate the `pwm_output.hex` file.
+
+2. **Clean the Build**:
+   To remove all generated files, run:
+   ```bash
+   make clean
+   ```
+
+3. **Flash the HEX File**:
+   Replace the `programmer-cli` command in the `flash` target with the actual command for your programmer. For example, if you're using a specific programming tool, you might use:
+   ```bash
+   make flash
+   ```
+
+---
+
+### Example Flashing Command:
+If you're using a tool like `P&E Micro` for flashing, the `flash` target might look like this:
+```makefile
+flash:
+	peprogrammer -f $(HEX)
+```
+
+If you're using a different tool, replace `peprogrammer` with the appropriate command.
+
+---
+
+### Notes:
+- Ensure that SDCC is installed and properly configured for the HC08 target (`sdcc-m08`).
+- Refer to the SDCC documentation for additional compiler and linker options: [SDCC Documentation](http://sdcc.sourceforge.net/doc/).
+- If your programmer uses a different command-line interface, update the `flash` target accordingly.
+
+This `Makefile` is complete and ready to use with your HC908QT2 PWM program. Let me know if you need further assistance!
